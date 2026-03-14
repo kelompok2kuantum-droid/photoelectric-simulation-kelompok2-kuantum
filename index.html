@@ -18,7 +18,7 @@
 <h1>Simulasi Efek Fotoelektrik</h1>
 
 <p class="subtitle">
-Visualisasi hubungan frekuensi cahaya dan energi kinetik elektron
+Media pembelajaran interaktif untuk memahami hubungan frekuensi cahaya dan energi kinetik elektron
 </p>
 
 <section class="theory">
@@ -52,9 +52,15 @@ f = frekuensi cahaya<br>
 
 <h3>Frekuensi Cahaya</h3>
 
-<input type="range" id="freq" min="1" max="12" step="0.1" value="5">
+<input type="range" id="freq" min="3" max="20" step="0.1" value="6">
 
-<p id="freqValue">5 ×10¹⁴ Hz</p>
+<p id="freqValue">6 ×10¹⁴ Hz</p>
+
+<p class="info">
+Rentang frekuensi simulasi:  
+3 ×10¹⁴ Hz – 2 ×10¹⁵ Hz  
+(spektrum cahaya tampak hingga ultraviolet)
+</p>
 
 <h3>Pilih Jenis Logam</h3>
 
@@ -100,6 +106,27 @@ f = frekuensi cahaya<br>
 <h2>Grafik Hubungan Frekuensi dan Energi Elektron</h2>
 
 <canvas id="graph"></canvas>
+
+</section>
+
+<section class="explanation">
+
+<h2>Interpretasi Simulasi</h2>
+
+<p>
+Jika frekuensi cahaya terlalu rendah maka energi foton tidak cukup
+untuk mengeluarkan elektron dari permukaan logam.
+</p>
+
+<p>
+Ketika frekuensi cahaya melebihi frekuensi ambang logam,
+elektron akan keluar dan memiliki energi kinetik tertentu.
+</p>
+
+<p>
+Grafik menunjukkan bahwa energi kinetik elektron meningkat
+secara linear terhadap frekuensi cahaya.
+</p>
 
 </section>
 
