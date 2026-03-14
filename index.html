@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Simulasi Efek Fotoelektrik Interaktif</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<h1>Simulasi Efek Fotoelektrik</h1>
+
+<p class="subtitle">
+Visualisasi hubungan frekuensi cahaya dan energi kinetik elektron
+</p>
+
+<section class="theory">
+
+<h2>Konsep Efek Fotoelektrik</h2>
+
+<p>
+Efek fotoelektrik adalah peristiwa terlepasnya elektron dari permukaan logam
+ketika logam disinari cahaya dengan frekuensi tertentu.
+</p>
+
+<p>
+Energi kinetik maksimum elektron mengikuti persamaan Einstein:
+</p>
+
+<div class="formula">
+Ek = h × f − φ
+</div>
+
+<p>
+h = konstanta Planck (4.136 × 10⁻¹⁵ eV·s)<br>
+f = frekuensi cahaya<br>
+φ = fungsi kerja logam
+</p>
+
+</section>
+
+<div class="container">
+
+<div class="control-panel">
+
+<h3>Frekuensi Cahaya</h3>
+
+<input type="range" id="freq" min="1" max="12" step="0.1" value="5">
+
+<p id="freqValue">5 ×10¹⁴ Hz</p>
+
+<h3>Pilih Jenis Logam</h3>
+
+<select id="metal">
+
+<option value="2.3">Sodium (φ = 2.3 eV)</option>
+<option value="4.7">Copper (φ = 4.7 eV)</option>
+<option value="5.1">Silver (φ = 5.1 eV)</option>
+<option value="4.3">Zinc (φ = 4.3 eV)</option>
+
+</select>
+
+<button onclick="runSimulation()">Jalankan Simulasi</button>
+
+</div>
+
+<div class="simulation">
+
+<div class="light" id="light"></div>
+
+<div class="metal"></div>
+
+<div id="electrons"></div>
+
+</div>
+
+</div>
+
+<div class="result">
+
+<h2>Hasil Perhitungan</h2>
+
+<p>Energi kinetik elektron:</p>
+
+<div class="energy" id="energy">0 eV</div>
+
+<p id="status"></p>
+
+</div>
+
+<section class="graph-section">
+
+<h2>Grafik Hubungan Frekuensi dan Energi Elektron</h2>
+
+<canvas id="graph"></canvas>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
