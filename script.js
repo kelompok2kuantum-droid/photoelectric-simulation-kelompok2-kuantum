@@ -4,9 +4,9 @@ let freqSlider = document.getElementById("freq")
 let freqText = document.getElementById("freqValue")
 let light = document.getElementById("light")
 
-freqSlider.oninput=function(){
+freqSlider.oninput = function(){
 
-freqText.innerHTML=this.value+" ×10¹⁴ Hz"
+freqText.innerHTML = this.value + " ×10¹⁴ Hz"
 
 updateLight()
 
@@ -16,17 +16,17 @@ function updateLight(){
 
 let f = freqSlider.value
 
-if(f < 4) light.style.background="red"
+if(f < 4) light.style.background = "red"
 
-else if(f < 5) light.style.background="orange"
+else if(f < 5) light.style.background = "orange"
 
-else if(f < 6) light.style.background="yellow"
+else if(f < 6) light.style.background = "yellow"
 
-else if(f < 7) light.style.background="green"
+else if(f < 7) light.style.background = "green"
 
-else if(f < 8) light.style.background="blue"
+else if(f < 8) light.style.background = "blue"
 
-else light.style.background="violet"
+else light.style.background = "violet"
 
 }
 
@@ -35,21 +35,32 @@ let chart = new Chart(document.getElementById("graph"),{
 type:"line",
 
 data:{
-
 labels:[],
-
 datasets:[{
-
 label:"Energi Elektron (eV)",
-
 data:[],
-
 borderColor:"blue",
-
-borderWidth:3
-
+borderWidth:3,
+fill:false
 }]
+},
 
+options:{
+responsive:true,
+scales:{
+x:{
+title:{
+display:true,
+text:"Frekuensi Cahaya (×10¹⁴ Hz)"
+}
+},
+y:{
+title:{
+display:true,
+text:"Energi Kinetik Elektron (eV)"
+}
+}
+}
 }
 
 })
@@ -60,49 +71,53 @@ let f = freqSlider.value * 1e14
 
 let phi = document.getElementById("metal").value
 
-let Ek = (h*f) - phi
+let Ek = (h * f) - phi
 
 let electrons = document.getElementById("electrons")
 
-electrons.innerHTML=""
+electrons.innerHTML = ""
 
 if(Ek <= 0){
 
-document.getElementById("energy").innerHTML="0 eV"
+document.getElementById("energy").innerHTML = "0 eV"
 
-document.getElementById("status").innerHTML="Frekuensi terlalu kecil. Elektron tidak keluar."
+document.getElementById("status").innerHTML =
+"Frekuensi terlalu rendah. Energi foton tidak cukup untuk mengeluarkan elektron."
 
-}else{
+}
 
-document.getElementById("energy").innerHTML=Ek.toFixed(2)+" eV"
+else{
 
-document.getElementById("status").innerHTML="Elektron keluar dari permukaan logam!"
+document.getElementById("energy").innerHTML =
+Ek.toFixed(2) + " eV"
+
+document.getElementById("status").innerHTML =
+"Elektron berhasil keluar dari permukaan logam."
 
 for(let i=0;i<8;i++){
 
-let e=document.createElement("div")
+let e = document.createElement("div")
 
-e.className="electron"
+e.className = "electron"
 
-e.innerHTML="e⁻"
+e.innerHTML = "e⁻"
 
-e.style.left=Math.random()*480+"px"
+e.style.left = Math.random()*480 + "px"
 
-e.style.bottom="80px"
+e.style.bottom = "80px"
 
 electrons.appendChild(e)
 
-let x=Math.random()*480
-
-let y=120+Math.random()*120
+let x = Math.random()*480
+let y = 120 + Math.random()*120
 
 setTimeout(()=>{
 
-e.style.transition="1s"
+e.style.transition = "1s"
 
-e.style.left=x+"px"
+e.style.left = x + "px"
 
-e.style.bottom=y+"px"
+e.style.bottom = y + "px"
 
 },100)
 
@@ -112,10 +127,25 @@ e.style.bottom=y+"px"
 
 chart.data.labels.push(freqSlider.value)
 
-chart.data.datasets[0].data.push(Ek>0?Ek:0)
+chart.data.datasets[0].data.push(Ek > 0 ? Ek : 0)
 
 chart.update()
 
 }
 
-updateLight()
+function resetGraph(){
+
+chart.data.labels = []
+
+chart.data.datasets[0].data = []
+
+chart.update()
+
+document.getElementById("energy").innerHTML = "0 eV"
+
+document.getElementById("status").innerHTML =
+"Grafik telah direset. Silakan lakukan simulasi kembali."
+
+document.getElementById("electrons").innerHTML = ""
+
+}
