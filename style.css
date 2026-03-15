@@ -82,14 +82,15 @@ top:55px;
 border-radius:4px;
 }
 
+/* ELEKTRON SEBAGAI SIMBOL e- */
+
 .electron{
-width:12px;
-height:12px;
-background:#00e5ff;
-border-radius:50%;
 position:absolute;
 left:200px;
-box-shadow:0 0 10px #00e5ff;
+color:#ffffff;
+font-size:18px;
+font-weight:bold;
+pointer-events:none;
 }
 
 .controls{
