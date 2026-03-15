@@ -6,6 +6,7 @@ const intensitySlider = document.getElementById("intensity")
 const metalSelect = document.getElementById("metalSelect")
 
 const freqValue = document.getElementById("freqValue")
+const photonEVText = document.getElementById("photonEV")
 const intensityValue = document.getElementById("intensityValue")
 const phiValue = document.getElementById("phiValue")
 
@@ -52,17 +53,24 @@ title:{display:true,text:"Energi Kinetik (J)"}
 }
 })
 
+
 function updateDisplay(){
 
 let f = parseFloat(freqSlider.value)
 let intensity = parseInt(intensitySlider.value)
 let phi = parseFloat(metalSelect.value)
 
+let photonEnergy = h * f
+let photonEV = photonEnergy / e
+
 freqValue.innerText = "Frekuensi: " + f.toExponential(2) + " Hz"
+photonEVText.innerText = "Energi Foton: " + photonEV.toFixed(2) + " eV"
+
 intensityValue.innerText = "Intensitas: " + intensity + " %"
 phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
 
 }
+
 
 function updateColor(freq){
 
@@ -80,6 +88,7 @@ beam.style.background = color
 lamp.style.boxShadow = "0 0 40px " + color
 
 }
+
 
 function createElectron(speed){
 
@@ -112,6 +121,7 @@ eParticle.remove()
 },20)
 
 }
+
 
 function runSimulation(){
 
@@ -179,7 +189,9 @@ statusText.innerText =
 
 }
 
+
 startBtn.addEventListener("click",runSimulation)
+
 
 resetBtn.addEventListener("click",function(){
 
@@ -199,6 +211,7 @@ statusText.innerText = ""
 
 })
 
+
 freqSlider.addEventListener("input",function(){
 
 updateDisplay()
@@ -212,6 +225,7 @@ updateColor(f)
 intensitySlider.addEventListener("input",updateDisplay)
 
 metalSelect.addEventListener("change",updateDisplay)
+
 
 updateDisplay()
 
