@@ -53,7 +53,6 @@ title:{display:true,text:"Energi Kinetik (J)"}
 }
 })
 
-
 function updateDisplay(){
 
 let f = parseFloat(freqSlider.value)
@@ -70,7 +69,6 @@ intensityValue.innerText = "Intensitas: " + intensity + " %"
 phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
 
 }
-
 
 function updateColor(freq){
 
@@ -89,12 +87,13 @@ lamp.style.boxShadow = "0 0 40px " + color
 
 }
 
-
 function createElectron(speed){
 
 let eParticle = document.createElement("div")
 
 eParticle.className = "electron"
+
+eParticle.innerText = "e⁻"
 
 let top = 80 + Math.random()*80
 
@@ -121,7 +120,6 @@ eParticle.remove()
 },20)
 
 }
-
 
 function runSimulation(){
 
@@ -189,9 +187,7 @@ statusText.innerText =
 
 }
 
-
 startBtn.addEventListener("click",runSimulation)
-
 
 resetBtn.addEventListener("click",function(){
 
@@ -211,7 +207,6 @@ statusText.innerText = ""
 
 })
 
-
 freqSlider.addEventListener("input",function(){
 
 updateDisplay()
@@ -225,7 +220,6 @@ updateColor(f)
 intensitySlider.addEventListener("input",updateDisplay)
 
 metalSelect.addEventListener("change",updateDisplay)
-
 
 updateDisplay()
 
