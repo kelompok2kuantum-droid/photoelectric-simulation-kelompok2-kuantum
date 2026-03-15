@@ -1,151 +1,218 @@
-const h = 4.136e-15
+const h = 6.626e-34
+const e = 1.602e-19
 
-let freqSlider = document.getElementById("freq")
-let freqText = document.getElementById("freqValue")
-let light = document.getElementById("light")
+const freqSlider = document.getElementById("frequency")
+const intensitySlider = document.getElementById("intensity")
+const metalSelect = document.getElementById("metalSelect")
 
-freqSlider.oninput = function(){
+const freqValue = document.getElementById("freqValue")
+const intensityValue = document.getElementById("intensityValue")
+const phiValue = document.getElementById("phiValue")
 
-freqText.innerHTML = this.value + " ×10¹⁴ Hz"
+const photonText = document.getElementById("photonEnergy")
+const kineticText = document.getElementById("kineticEnergy")
+const thresholdText = document.getElementById("thresholdFreq")
+const statusText = document.getElementById("status")
 
-updateLight()
+const lamp = document.getElementById("lamp")
+const beam = document.getElementById("beam")
+const electronsContainer = document.getElementById("electrons")
 
-}
+const startBtn = document.getElementById("startBtn")
+const resetBtn = document.getElementById("resetBtn")
 
-function updateLight(){
+const graphList = document.getElementById("graphData")
 
-let f = freqSlider.value
+let chart
 
-if(f < 4) light.style.background = "red"
+const ctx = document.getElementById("energyChart")
 
-else if(f < 5) light.style.background = "orange"
-
-else if(f < 6) light.style.background = "yellow"
-
-else if(f < 7) light.style.background = "green"
-
-else if(f < 8) light.style.background = "blue"
-
-else light.style.background = "violet"
-
-}
-
-let chart = new Chart(document.getElementById("graph"),{
-
+chart = new Chart(ctx,{
 type:"line",
-
 data:{
 labels:[],
 datasets:[{
-label:"Energi Elektron (eV)",
+label:"Energi Kinetik Elektron",
 data:[],
-borderColor:"blue",
-borderWidth:3,
+borderColor:"cyan",
+borderWidth:2,
 fill:false
 }]
 },
-
 options:{
 responsive:true,
 scales:{
 x:{
-title:{
-display:true,
-text:"Frekuensi Cahaya (×10¹⁴ Hz)"
-}
+title:{display:true,text:"Frekuensi Cahaya (Hz)"}
 },
 y:{
-title:{
-display:true,
-text:"Energi Kinetik Elektron (eV)"
+title:{display:true,text:"Energi Kinetik (J)"}
 }
 }
 }
+})
+
+function updateDisplay(){
+
+let f = parseFloat(freqSlider.value)
+let intensity = parseInt(intensitySlider.value)
+let phi = parseFloat(metalSelect.value)
+
+freqValue.innerText = "Frekuensi: " + f.toExponential(2) + " Hz"
+intensityValue.innerText = "Intensitas: " + intensity + " %"
+phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
+
 }
 
-})
+function updateColor(freq){
+
+let ratio = (freq - 4e14) / (2e15 - 4e14)
+
+if(ratio < 0) ratio = 0
+if(ratio > 1) ratio = 1
+
+let hue = 240 - ratio * 240
+
+let color = "hsl(" + hue + ",100%,50%)"
+
+lamp.style.background = color
+beam.style.background = color
+lamp.style.boxShadow = "0 0 40px " + color
+
+}
+
+function createElectron(speed){
+
+let eParticle = document.createElement("div")
+
+eParticle.className = "electron"
+
+let top = 80 + Math.random()*80
+
+eParticle.style.top = top + "px"
+
+electronsContainer.appendChild(eParticle)
+
+let pos = 200
+
+let move = setInterval(function(){
+
+pos += speed
+
+eParticle.style.left = pos + "px"
+
+if(pos > 800){
+
+clearInterval(move)
+
+eParticle.remove()
+
+}
+
+},20)
+
+}
 
 function runSimulation(){
 
-let f = freqSlider.value * 1e14
+let f = parseFloat(freqSlider.value)
+let intensity = parseInt(intensitySlider.value)
+let phi = parseFloat(metalSelect.value)
 
-let phi = document.getElementById("metal").value
+let photonEnergy = h * f
+let photonEV = photonEnergy / e
 
-let Ek = (h * f) - phi
+let phiJoule = phi * e
 
-let electrons = document.getElementById("electrons")
+let kinetic = photonEnergy - phiJoule
+let kineticEV = kinetic / e
 
-electrons.innerHTML = ""
+let thresholdFreq = phiJoule / h
 
-if(Ek <= 0){
+photonText.innerText =
+photonEV.toFixed(2) + " eV  (" + photonEnergy.toExponential(3) + " J)"
 
-document.getElementById("energy").innerHTML = "0 eV"
+thresholdText.innerText =
+thresholdFreq.toExponential(3) + " Hz"
 
-document.getElementById("status").innerHTML =
-"Frekuensi terlalu rendah. Energi foton tidak cukup untuk mengeluarkan elektron."
+updateColor(f)
 
+if(kinetic > 0){
+
+kineticText.innerText =
+kineticEV.toFixed(2) + " eV  (" + kinetic.toExponential(3) + " J)"
+
+statusText.innerText = "Elektron keluar dari logam"
+
+let speed = kineticEV
+
+if(speed < 1) speed = 1
+if(speed > 12) speed = 12
+
+let electronCount = Math.floor(intensity / 20)
+
+for(let i=0;i<electronCount;i++){
+createElectron(speed)
 }
 
-else{
-
-document.getElementById("energy").innerHTML =
-Ek.toFixed(2) + " eV"
-
-document.getElementById("status").innerHTML =
-"Elektron berhasil keluar dari permukaan logam."
-
-for(let i=0;i<8;i++){
-
-let e = document.createElement("div")
-
-e.className = "electron"
-
-e.innerHTML = "e⁻"
-
-e.style.left = Math.random()*480 + "px"
-
-e.style.bottom = "80px"
-
-electrons.appendChild(e)
-
-let x = Math.random()*480
-let y = 120 + Math.random()*120
-
-setTimeout(()=>{
-
-e.style.transition = "1s"
-
-e.style.left = x + "px"
-
-e.style.bottom = y + "px"
-
-},100)
-
-}
-
-}
-
-chart.data.labels.push(freqSlider.value)
-
-chart.data.datasets[0].data.push(Ek > 0 ? Ek : 0)
+chart.data.labels.push(f.toExponential(1))
+chart.data.datasets[0].data.push(kinetic)
 
 chart.update()
 
+let li = document.createElement("li")
+
+li.innerText =
+"f = " + f.toExponential(2) +
+" , Ek = " + kineticEV.toFixed(2) + " eV"
+
+graphList.appendChild(li)
+
+}else{
+
+kineticText.innerText = "0 eV"
+
+statusText.innerText =
+"Frekuensi lebih kecil dari frekuensi ambang sehingga elektron tidak keluar"
+
 }
 
-function resetGraph(){
+}
+
+startBtn.addEventListener("click",runSimulation)
+
+resetBtn.addEventListener("click",function(){
+
+electronsContainer.innerHTML = ""
 
 chart.data.labels = []
-
 chart.data.datasets[0].data = []
 
 chart.update()
 
-document.getElementById("energy").innerHTML = "0 eV"
+graphList.innerHTML = ""
 
-document.getElementById("status").innerHTML =
-"Grafik telah direset. Silakan lakukan simulasi kembali."
+photonText.innerText = ""
+kineticText.innerText = ""
+thresholdText.innerText = ""
+statusText.innerText = ""
 
-document.getElementById("electrons").innerHTML = ""
+})
 
-}
+freqSlider.addEventListener("input",function(){
+
+updateDisplay()
+
+let f = parseFloat(freqSlider.value)
+
+updateColor(f)
+
+})
+
+intensitySlider.addEventListener("input",updateDisplay)
+
+metalSelect.addEventListener("change",updateDisplay)
+
+updateDisplay()
+
+updateColor(parseFloat(freqSlider.value))
