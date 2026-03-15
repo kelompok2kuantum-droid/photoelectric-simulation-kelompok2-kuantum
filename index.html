@@ -4,8 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<title>Simulasi Efek Fotoelektrik Interaktif</title>
+<title>Simulasi Efek Fotoelektrik</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,81 +14,36 @@
 
 <body>
 
-<h1>Simulasi Efek Fotoelektrik</h1>
-
-<p class="subtitle">
-Media pembelajaran interaktif untuk memahami hubungan frekuensi cahaya dan energi kinetik elektron
-</p>
-
-<section class="theory">
-
-<h2>Konsep Efek Fotoelektrik</h2>
-
-<p>
-Efek fotoelektrik adalah peristiwa terlepasnya elektron dari permukaan logam
-ketika logam disinari cahaya dengan frekuensi tertentu.
-</p>
-
-<p>
-Energi kinetik maksimum elektron mengikuti persamaan Einstein:
-</p>
-
-<div class="formula">
-Ek = h × f − φ
-</div>
-
-<p>
-h = konstanta Planck (4.136 × 10⁻¹⁵ eV·s)<br>
-f = frekuensi cahaya<br>
-φ = fungsi kerja logam
-</p>
-
-</section>
-
 <div class="container">
 
-<div class="control-panel">
+<h1>Simulasi Interaktif Efek Fotoelektrik</h1>
 
-<h3>Frekuensi Cahaya</h3>
-
-<input type="range" id="freq" min="3" max="20" step="0.1" value="6">
-
-<p id="freqValue">6 ×10¹⁴ Hz</p>
-
-<p class="info">
-Rentang frekuensi simulasi:  
-3 ×10¹⁴ Hz – 2 ×10¹⁵ Hz  
-(spektrum cahaya tampak hingga ultraviolet)
+<p class="subtitle">
+Visualisasi hubungan frekuensi cahaya, fungsi kerja logam, dan energi kinetik elektron berdasarkan persamaan Einstein
 </p>
 
-<h3>Pilih Jenis Logam</h3>
 
-<select id="metal">
+<div class="formula">
 
-<option value="2.3">Sodium (φ = 2.3 eV)</option>
-<option value="4.7">Copper (φ = 4.7 eV)</option>
-<option value="5.1">Silver (φ = 5.1 eV)</option>
-<option value="4.3">Zinc (φ = 4.3 eV)</option>
+<h3>Persamaan Energi Einstein</h3>
 
-</select>
+<p class="equation">hf = φ + Ek</p>
 
-<div class="button-group">
-
-<button onclick="runSimulation()">
-Jalankan Simulasi
-</button>
-
-<button onclick="resetGraph()" class="reset-btn">
-Reset Grafik
-</button>
+<p>
+h = konstanta Planck <br>
+f = frekuensi cahaya <br>
+φ = fungsi kerja logam <br>
+Ek = energi kinetik maksimum elektron
+</p>
 
 </div>
 
-</div>
 
 <div class="simulation">
 
-<div class="light" id="light"></div>
+<div class="lamp" id="lamp"></div>
+
+<div class="beam" id="beam"></div>
 
 <div class="metal"></div>
 
@@ -97,48 +51,132 @@ Reset Grafik
 
 </div>
 
+
+
+<div class="controls">
+
+<div class="control-box">
+
+<label>Frekuensi Cahaya</label>
+
+<input type="range"
+id="frequency"
+min="4e14"
+max="2e15"
+step="1e13"
+value="6e14">
+
+<p id="freqValue"></p>
+
 </div>
 
-<div class="result">
+
+<div class="control-box">
+
+<label>Intensitas Cahaya</label>
+
+<input type="range"
+id="intensity"
+min="10"
+max="100"
+step="10"
+value="50">
+
+<p id="intensityValue"></p>
+
+</div>
+
+
+<div class="control-box">
+
+<label>Jenis Logam</label>
+
+<select id="metalSelect">
+
+<option value="2.1">Cesium (φ = 2.1 eV)</option>
+<option value="2.3">Sodium (φ = 2.3 eV)</option>
+<option value="4.3">Zinc (φ = 4.3 eV)</option>
+<option value="4.7">Copper (φ = 4.7 eV)</option>
+
+</select>
+
+<p id="phiValue"></p>
+
+</div>
+
+</div>
+
+
+<div class="buttons">
+
+<button id="startBtn">Mulai Simulasi</button>
+
+<button id="resetBtn">Reset</button>
+
+</div>
+
+
+
+<div class="results">
 
 <h2>Hasil Perhitungan</h2>
 
-<p>Energi kinetik elektron:</p>
+<p><b>Energi Foton (hf)</b> : <span id="photonEnergy"></span></p>
 
-<div class="energy" id="energy">0 eV</div>
+<p><b>Energi Kinetik (Ek)</b> : <span id="kineticEnergy"></span></p>
 
-<p id="status"></p>
+<p><b>Frekuensi Ambang</b> : <span id="thresholdFreq"></span></p>
+
+<p><b>Status Elektron</b> : <span id="status"></span></p>
 
 </div>
 
-<section class="graph-section">
 
-<h2>Grafik Hubungan Frekuensi dan Energi Elektron</h2>
 
-<canvas id="graph"></canvas>
+<div class="explanation">
 
-</section>
+<h3>Konsep Penting</h3>
 
-<section class="explanation">
+<ul>
 
-<h2>Interpretasi Simulasi</h2>
+<li>Frekuensi cahaya menentukan energi kinetik elektron.</li>
 
-<p>
-Jika frekuensi cahaya terlalu rendah maka energi foton tidak cukup
-untuk mengeluarkan elektron dari permukaan logam.
+<li>Intensitas cahaya menentukan jumlah elektron yang keluar.</li>
+
+<li>Elektron hanya keluar jika frekuensi lebih besar dari frekuensi ambang.</li>
+
+<li>Fungsi kerja logam menentukan frekuensi ambang.</li>
+
+</ul>
+
+</div>
+
+
+
+<div class="graph-section">
+
+<h2>Grafik Frekuensi vs Energi Kinetik</h2>
+
+<p class="graph-desc">
+Grafik menunjukkan hubungan antara frekuensi cahaya dan energi kinetik maksimum elektron.
+Setelah melewati frekuensi ambang, energi kinetik meningkat secara linear.
 </p>
 
-<p>
-Ketika frekuensi cahaya melebihi frekuensi ambang logam,
-elektron akan keluar dan memiliki energi kinetik tertentu.
-</p>
+<canvas id="energyChart"></canvas>
 
-<p>
-Grafik menunjukkan bahwa energi kinetik elektron meningkat
-secara linear terhadap frekuensi cahaya.
-</p>
 
-</section>
+<div class="graph-values">
+
+<h3>Data Simulasi</h3>
+
+<ul id="graphData"></ul>
+
+</div>
+
+</div>
+
+
+</div>
 
 <script src="script.js"></script>
 
