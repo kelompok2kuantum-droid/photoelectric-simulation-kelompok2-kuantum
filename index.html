@@ -24,7 +24,7 @@
 
 <div class="controls">
 
-<p>Frekuensi</p>
+<p>Frekuensi Cahaya</p>
 <input type="range"
 id="frequency"
 min="4e14"
@@ -34,7 +34,7 @@ value="4e14">
 
 <p id="freqValue"></p>
 
-<p>Intensitas</p>
+<p>Intensitas Cahaya</p>
 <input type="range"
 id="intensity"
 min="10"
@@ -44,18 +44,20 @@ value="50">
 
 <p id="intensityValue"></p>
 
-<p>Logam</p>
+<p>Jenis Logam</p>
 <select id="metalSelect">
-<option value="2.1">Cesium</option>
-<option value="2.3">Sodium</option>
-<option value="4.3">Zinc</option>
-<option value="4.7">Copper</option>
+<option value="2.1">Cesium (φ = 2.1 eV)</option>
+<option value="2.3">Sodium (φ = 2.3 eV)</option>
+<option value="4.3">Zinc (φ = 4.3 eV)</option>
+<option value="4.7">Copper (φ = 4.7 eV)</option>
 </select>
 
 </div>
 
-<button id="startBtn">Mulai</button>
+<div style="margin-top:15px;">
+<button id="startBtn">Mulai Simulasi</button>
 <button id="resetBtn">Reset</button>
+</div>
 
 <canvas id="energyChart"></canvas>
 
