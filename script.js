@@ -41,6 +41,7 @@ intensityValue.innerText = "Intensitas: " + intensity + "%"
 
 }
 
+// 🔥 mapping warna diperbaiki (sesuai spektrum)
 function getColor(freq){
 
 let min = 4e14
@@ -51,11 +52,12 @@ let ratio = (freq - min) / (max - min)
 if(ratio < 0) ratio = 0
 if(ratio > 1) ratio = 1
 
-if(ratio <= 0.2) return "red"
-if(ratio <= 0.4) return "orange"
-if(ratio <= 0.6) return "green"
-if(ratio <= 0.8) return "blue"
-return "violet"
+if(ratio < 0.17) return "#ff0000"   // merah
+if(ratio < 0.33) return "#ff7f00"   // orange
+if(ratio < 0.50) return "#ffff00"   // kuning
+if(ratio < 0.67) return "#00ff00"   // hijau
+if(ratio < 0.83) return "#0000ff"   // biru
+return "#8b00ff"                    // ungu
 
 }
 
