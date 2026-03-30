@@ -36,28 +36,32 @@ function updateDisplay(){
 let f = parseFloat(freqSlider.value)
 let intensity = parseInt(intensitySlider.value)
 
+// pengaman range
+if(f < 4e14) f = 4e14
+if(f > 7.5e14) f = 7.5e14
+
 freqValue.innerText = "Frekuensi: " + f.toExponential(2)
 intensityValue.innerText = "Intensitas: " + intensity + "%"
 
 }
 
-// 🔥 mapping warna diperbaiki (sesuai spektrum)
 function getColor(freq){
 
 let min = 4e14
 let max = 7.5e14
 
+// clamp biar tidak keluar spektrum
+if(freq < min) freq = min
+if(freq > max) freq = max
+
 let ratio = (freq - min) / (max - min)
 
-if(ratio < 0) ratio = 0
-if(ratio > 1) ratio = 1
-
-if(ratio < 0.17) return "#ff0000"   // merah
-if(ratio < 0.33) return "#ff7f00"   // orange
-if(ratio < 0.50) return "#ffff00"   // kuning
-if(ratio < 0.67) return "#00ff00"   // hijau
-if(ratio < 0.83) return "#0000ff"   // biru
-return "#8b00ff"                    // ungu
+if(ratio < 0.17) return "#ff0000"
+if(ratio < 0.33) return "#ff7f00"
+if(ratio < 0.50) return "#ffff00"
+if(ratio < 0.67) return "#00ff00"
+if(ratio < 0.83) return "#0000ff"
+return "#8b00ff"
 
 }
 
@@ -102,6 +106,10 @@ let f = parseFloat(freqSlider.value)
 let intensity = parseInt(intensitySlider.value)
 let phi = parseFloat(metalSelect.value)
 
+// pengaman
+if(f < 4e14) f = 4e14
+if(f > 7.5e14) f = 7.5e14
+
 let Ek = (h * f) - (phi * e)
 
 updateColor(f)
@@ -139,8 +147,14 @@ graphList.innerHTML = ""
 
 freqSlider.addEventListener("input",()=>{
 
+let f = parseFloat(freqSlider.value)
+
+// clamp
+if(f < 4e14) f = 4e14
+if(f > 7.5e14) f = 7.5e14
+
 updateDisplay()
-updateColor(parseFloat(freqSlider.value))
+updateColor(f)
 
 })
 
