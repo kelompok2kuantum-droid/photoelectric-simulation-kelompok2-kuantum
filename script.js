@@ -32,11 +32,13 @@ borderWidth:2
 })
 
 function updateDisplay(){
+
 let f = parseFloat(freqSlider.value)
 let intensity = parseInt(intensitySlider.value)
 
-freqValue.innerText = "f = " + f.toExponential(2)
-intensityValue.innerText = "Intensitas = " + intensity + "%"
+freqValue.innerText = "Frekuensi: " + f.toExponential(2)
+intensityValue.innerText = "Intensitas: " + intensity + "%"
+
 }
 
 function getColor(freq){
@@ -45,14 +47,14 @@ let min = 4e14
 let max = 7.5e14
 
 let ratio = (freq - min) / (max - min)
+
 if(ratio < 0) ratio = 0
 if(ratio > 1) ratio = 1
 
-// mapping warna benar
-if(ratio < 0.2) return "red"
-if(ratio < 0.4) return "orange"
-if(ratio < 0.6) return "green"
-if(ratio < 0.8) return "blue"
+if(ratio <= 0.2) return "red"
+if(ratio <= 0.4) return "orange"
+if(ratio <= 0.6) return "green"
+if(ratio <= 0.8) return "blue"
 return "violet"
 
 }
@@ -98,13 +100,13 @@ let f = parseFloat(freqSlider.value)
 let intensity = parseInt(intensitySlider.value)
 let phi = parseFloat(metalSelect.value)
 
-let Ek = (h*f) - (phi*e)
+let Ek = (h * f) - (phi * e)
 
 updateColor(f)
 
 if(Ek > 0){
 
-let jumlah = Math.floor(intensity/20)
+let jumlah = Math.floor(intensity / 20)
 
 for(let i=0;i<jumlah;i++){
 createElectron()
@@ -123,8 +125,10 @@ startBtn.addEventListener("click",runSimulation)
 resetBtn.addEventListener("click",()=>{
 
 electronsContainer.innerHTML = ""
+
 chart.data.labels = []
 chart.data.datasets[0].data = []
+
 chart.update()
 
 graphList.innerHTML = ""
@@ -132,8 +136,10 @@ graphList.innerHTML = ""
 })
 
 freqSlider.addEventListener("input",()=>{
+
 updateDisplay()
 updateColor(parseFloat(freqSlider.value))
+
 })
 
 intensitySlider.addEventListener("input",updateDisplay)
