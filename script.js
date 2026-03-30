@@ -1,6 +1,5 @@
 const h = 6.626e-34
 const e = 1.602e-19
-const c = 3e8
 
 const freqSlider = document.getElementById("frequency")
 const intensitySlider = document.getElementById("intensity")
@@ -68,45 +67,40 @@ phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
 
 function freqToRGB(freq){
 
-let wavelength = (c / freq) * 1e9
+let minF = 4e14
+let maxF = 7.5e14
 
-let R=0, G=0, B=0
+let ratio = (freq - minF) / (maxF - minF)
 
-if(wavelength >= 380 && wavelength < 440){
-R = -(wavelength - 440) / (440 - 380)
-B = 1
-}
-else if(wavelength >= 440 && wavelength < 490){
-G = (wavelength - 440) / (490 - 440)
-B = 1
-}
-else if(wavelength >= 490 && wavelength < 510){
-G = 1
-B = -(wavelength - 510) / (510 - 490)
-}
-else if(wavelength >= 510 && wavelength < 580){
-R = (wavelength - 510) / (580 - 510)
-G = 1
-}
-else if(wavelength >= 580 && wavelength < 645){
-R = 1
-G = -(wavelength - 645) / (645 - 580)
-}
-else if(wavelength >= 645 && wavelength <= 750){
-R = 1
-}
+if(ratio < 0) ratio = 0
+if(ratio > 1) ratio = 1
 
-let factor = 1
-if(wavelength < 420){
-factor = 0.3 + 0.7*(wavelength-380)/(420-380)
+let r = 0, g = 0, b = 0
+
+if(ratio < 0.2){
+r = 1
+g = ratio * 5
 }
-else if(wavelength > 645){
-factor = 0.3 + 0.7*(750-wavelength)/(750-645)
+else if(ratio < 0.4){
+r = 1 - (ratio - 0.2)*5
+g = 1
+}
+else if(ratio < 0.6){
+g = 1
+b = (ratio - 0.4)*5
+}
+else if(ratio < 0.8){
+g = 1 - (ratio - 0.6)*5
+b = 1
+}
+else{
+r = (ratio - 0.8)*5
+b = 1
 }
 
-let r = Math.round(255 * R * factor)
-let g = Math.round(255 * G * factor)
-let b = Math.round(255 * B * factor)
+r = Math.round(r * 255)
+g = Math.round(g * 255)
+b = Math.round(b * 255)
 
 return `rgb(${r},${g},${b})`
 }
