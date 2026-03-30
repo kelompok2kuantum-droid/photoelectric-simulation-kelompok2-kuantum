@@ -70,6 +70,7 @@ phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
 
 }
 
+// ✅ PERBAIKAN DI SINI SAJA
 function updateColor(freq){
 
 let ratio = (freq - 4e14) / (2e15 - 4e14)
@@ -77,7 +78,8 @@ let ratio = (freq - 4e14) / (2e15 - 4e14)
 if(ratio < 0) ratio = 0
 if(ratio > 1) ratio = 1
 
-let hue = 240 - ratio * 240
+// dari merah (0) ke ungu (~280)
+let hue = ratio * 280
 
 let color = "hsl(" + hue + ",100%,50%)"
 
