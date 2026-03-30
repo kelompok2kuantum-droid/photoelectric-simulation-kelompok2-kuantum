@@ -2,12 +2,10 @@
 <html lang="id">
 
 <head>
-
 <meta charset="UTF-8">
 <title>Simulasi Efek Fotoelektrik</title>
 
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -18,173 +16,61 @@
 
 <h1>Simulasi Interaktif Efek Fotoelektrik</h1>
 
-<p class="subtitle">
-Visualisasi hubungan frekuensi cahaya, fungsi kerja logam, dan energi kinetik elektron berdasarkan persamaan Einstein
-</p>
-
-
-<div class="formula">
-
-<h3>Persamaan Energi Einstein</h3>
-
-<p class="equation">hf = φ + Ek</p>
-
-<p>
-h = konstanta Planck <br>
-f = frekuensi cahaya <br>
-φ = fungsi kerja logam <br>
-Ek = energi kinetik maksimum elektron
-</p>
-
-</div>
-
-
 <div class="simulation">
-
 <div class="lamp" id="lamp"></div>
-
 <div class="beam" id="beam"></div>
-
 <div class="metal"></div>
-
 <div id="electrons"></div>
-
 </div>
-
-
 
 <div class="controls">
 
 <div class="control-box">
-
-<label>Frekuensi Cahaya (Spektrum Tampak)</label>
-
+<label>Frekuensi Cahaya</label>
 <input type="range"
 id="frequency"
 min="4e14"
 max="7.5e14"
 step="1e13"
-value="5.5e14">
-
+value="4e14">
 <p id="freqValue"></p>
-<p id="photonEV"></p>
-
-<p style="font-size:12px; color:gray;">
-Merah ← → Ungu (Cahaya Tampak)
-</p>
-
 </div>
 
-
 <div class="control-box">
-
-<label>Intensitas Cahaya</label>
-
+<label>Intensitas</label>
 <input type="range"
 id="intensity"
 min="10"
 max="100"
 step="10"
 value="50">
-
 <p id="intensityValue"></p>
-
 </div>
-
 
 <div class="control-box">
-
-<label>Jenis Logam</label>
-
+<label>Logam</label>
 <select id="metalSelect">
-
-<option value="2.1">Cesium (φ = 2.1 eV)</option>
-<option value="2.3">Sodium (φ = 2.3 eV)</option>
-<option value="4.3">Zinc (φ = 4.3 eV)</option>
-<option value="4.7">Copper (φ = 4.7 eV)</option>
-
+<option value="2.1">Cesium</option>
+<option value="2.3">Sodium</option>
+<option value="4.3">Zinc</option>
+<option value="4.7">Copper</option>
 </select>
-
-<p id="phiValue"></p>
-
 </div>
 
 </div>
-
 
 <div class="buttons">
-
-<button id="startBtn">Mulai Simulasi</button>
-
+<button id="startBtn">Mulai</button>
 <button id="resetBtn">Reset</button>
-
 </div>
-
-
-
-<div class="results">
-
-<h2>Hasil Perhitungan</h2>
-
-<p><b>Energi Foton (hf)</b> : <span id="photonEnergy"></span></p>
-
-<p><b>Energi Kinetik (Ek)</b> : <span id="kineticEnergy"></span></p>
-
-<p><b>Frekuensi Ambang</b> : <span id="thresholdFreq"></span></p>
-
-<p><b>Status Elektron</b> : <span id="status"></span></p>
-
-</div>
-
-
-
-<div class="explanation">
-
-<h3>Konsep Penting</h3>
-
-<ul>
-
-<li>Frekuensi cahaya menentukan energi kinetik elektron.</li>
-
-<li>Intensitas cahaya menentukan jumlah elektron yang keluar.</li>
-
-<li>Elektron hanya keluar jika frekuensi lebih besar dari frekuensi ambang.</li>
-
-<li>Fungsi kerja logam menentukan frekuensi ambang.</li>
-
-</ul>
-
-</div>
-
-
-
-<div class="graph-section">
-
-<h2>Grafik Frekuensi vs Energi Kinetik</h2>
-
-<p class="graph-desc">
-Grafik menunjukkan hubungan antara frekuensi cahaya dan energi kinetik maksimum elektron.
-Setelah melewati frekuensi ambang, energi kinetik meningkat secara linear.
-</p>
 
 <canvas id="energyChart"></canvas>
 
-
-<div class="graph-values">
-
-<h3>Data Simulasi</h3>
-
 <ul id="graphData"></ul>
-
-</div>
-
-</div>
-
 
 </div>
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
