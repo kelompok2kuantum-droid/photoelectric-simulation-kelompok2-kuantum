@@ -1,205 +1,81 @@
-body{
-font-family:'Segoe UI',sans-serif;
-background:linear-gradient(135deg,#1a2a6c,#162b4d,#0f1f3a);
+body {
 margin:0;
-color:#f1f5ff;
+font-family: Arial;
+background: linear-gradient(#1e2b50, #0f1a30);
+color:white;
 }
 
-.container{
-width:1100px;
-margin:auto;
-padding:30px;
-}
-
-h1{
-font-size:34px;
-margin-bottom:5px;
-}
-
-.subtitle{
-color:#d0d8ff;
-margin-bottom:30px;
-}
-
-.formula{
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
+.container {
 padding:20px;
-border-radius:12px;
-margin-bottom:30px;
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
-.equation{
-font-size:28px;
-font-weight:bold;
-color:#ffd54f;
-margin:10px 0;
-}
-
-.simulation{
-width:900px;
-height:260px;
-margin:auto;
-border-radius:15px;
-border:1px solid rgba(255,255,255,0.2);
-background:linear-gradient(180deg,#081425,#03080f);
+.simulation {
 position:relative;
+height:250px;
+background:black;
+border-radius:20px;
+margin-bottom:20px;
 overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,0.6);
-margin-bottom:35px;
 }
 
-.lamp{
-width:50px;
-height:50px;
+.lamp {
+width:60px;
+height:60px;
 border-radius:50%;
-background:#ffeb3b;
 position:absolute;
-left:60px;
-top:105px;
-box-shadow:0 0 40px #ffeb3b;
+top:90px;
+left:50px;
+background:black;
 }
 
-.beam{
-width:340px;
-height:8px;
-background:#ffeb3b;
+.beam {
 position:absolute;
+top:115px;
 left:110px;
-top:130px;
-border-radius:4px;
-opacity:0.9;
+height:10px;
+width:600px;
+border-radius:10px;
+background:black;
 }
 
-.metal{
-width:28px;
-height:150px;
-background:linear-gradient(180deg,#b0bec5,#607d8b);
+.metal {
 position:absolute;
-right:250px;
-top:55px;
-border-radius:4px;
+right:50px;
+top:60px;
+width:30px;
+height:120px;
+background:silver;
 }
 
-/* ELEKTRON SEBAGAI SIMBOL e- */
-
-.electron{
+.electron {
 position:absolute;
 left:200px;
-color:#ffffff;
-font-size:18px;
-font-weight:bold;
-pointer-events:none;
+color:cyan;
+font-size:20px;
 }
 
-.controls{
+.controls {
 display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
 gap:20px;
-margin-bottom:25px;
-}
-
-.control-box{
-background:rgba(255,255,255,0.06);
-padding:15px;
-border-radius:10px;
-width:31%;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-.control-box label{
-font-weight:600;
-}
-
-input[type=range]{
-width:100%;
-margin-top:10px;
-}
-
-select{
-width:100%;
-margin-top:10px;
-padding:6px;
-border-radius:5px;
-border:none;
-}
-
-.buttons{
-margin-top:20px;
-}
-
-button{
-padding:12px 22px;
-font-size:16px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-margin:10px;
-transition:0.2s;
-}
-
-#startBtn{
-background:linear-gradient(135deg,#00c853,#64dd17);
-color:white;
-}
-
-#resetBtn{
-background:linear-gradient(135deg,#ff1744,#d50000);
-color:white;
-}
-
-button:hover{
-transform:scale(1.05);
-box-shadow:0 8px 20px rgba(0,0,0,0.5);
-}
-
-.results{
-background:rgba(255,255,255,0.06);
-padding:15px;
-border-radius:10px;
-margin-top:25px;
-line-height:1.6;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-.explanation{
-background:rgba(255,255,255,0.06);
-padding:20px;
-border-radius:10px;
-margin-top:30px;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-.graph-section{
-margin-top:40px;
-background:rgba(255,255,255,0.08);
-padding:25px;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.35);
-}
-
-.graph-desc{
-color:#d0d8ff;
 margin-bottom:20px;
 }
 
-canvas{
-background:white;
-border-radius:8px;
-margin-top:10px;
+.control-box {
+background:#2c3e70;
+padding:15px;
+border-radius:10px;
 }
 
-.graph-values{
-margin-top:20px;
+button {
+padding:10px 20px;
+margin-right:10px;
+border:none;
+border-radius:5px;
+background:#3498db;
+color:white;
+cursor:pointer;
 }
 
-.graph-values ul{
-list-style:none;
-padding:0;
-}
-
-.graph-values li{
-margin-bottom:6px;
+button:hover {
+background:#2980b9;
 }
