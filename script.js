@@ -59,9 +59,22 @@ return "violet"
 
 }
 
+// ✅ PERBAIKAN DI SINI SAJA
 function updateColor(freq){
 
+<<<<<<< HEAD
 let color = getColor(freq)
+=======
+let ratio = (freq - 4e14) / (2e15 - 4e14)
+
+if(ratio < 0) ratio = 0
+if(ratio > 1) ratio = 1
+
+// dari merah (0) ke ungu (~280)
+let hue = ratio * 280
+
+let color = "hsl(" + hue + ",100%,50%)"
+>>>>>>> 7e5bbbc004803d34822163f70027e514c6aee875
 
 lamp.style.background = color
 beam.style.background = color
