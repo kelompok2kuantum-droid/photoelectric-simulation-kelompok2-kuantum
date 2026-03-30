@@ -14,55 +14,48 @@
 
 <div class="container">
 
-<h1>Simulasi Interaktif Efek Fotoelektrik</h1>
+<h2>Simulasi Efek Fotoelektrik</h2>
 
 <div class="simulation">
-<div class="lamp" id="lamp"></div>
-<div class="beam" id="beam"></div>
-<div class="metal"></div>
+<div id="lamp"></div>
+<div id="beam"></div>
 <div id="electrons"></div>
 </div>
 
 <div class="controls">
 
-<div class="control-box">
-<label>Frekuensi Cahaya</label>
+<p>Frekuensi</p>
 <input type="range"
 id="frequency"
 min="4e14"
 max="7.5e14"
 step="1e13"
 value="4e14">
-<p id="freqValue"></p>
-</div>
 
-<div class="control-box">
-<label>Intensitas</label>
+<p id="freqValue"></p>
+
+<p>Intensitas</p>
 <input type="range"
 id="intensity"
 min="10"
 max="100"
 step="10"
 value="50">
-<p id="intensityValue"></p>
-</div>
 
-<div class="control-box">
-<label>Logam</label>
+<p id="intensityValue"></p>
+
+<p>Logam</p>
 <select id="metalSelect">
 <option value="2.1">Cesium</option>
 <option value="2.3">Sodium</option>
 <option value="4.3">Zinc</option>
 <option value="4.7">Copper</option>
 </select>
-</div>
 
 </div>
 
-<div class="buttons">
 <button id="startBtn">Mulai</button>
 <button id="resetBtn">Reset</button>
-</div>
 
 <canvas id="energyChart"></canvas>
 
