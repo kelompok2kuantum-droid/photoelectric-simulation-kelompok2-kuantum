@@ -50,7 +50,7 @@ box-shadow:0 15px 40px rgba(0,0,0,0.6);
 margin-bottom:35px;
 }
 
-/* 🔁 LAMPU DIPINDAH KE KANAN */
+/* 🔁 LAMPU DI KANAN */
 .lamp{
 width:50px;
 height:50px;
@@ -62,7 +62,7 @@ top:105px;
 box-shadow:0 0 40px #ffeb3b;
 }
 
-/* 🔁 BEAM DARI KANAN KE KIRI */
+/* 🔁 BEAM DARI KANAN KE LOGAM */
 .beam{
 width:340px;
 height:8px;
@@ -74,27 +74,27 @@ border-radius:4px;
 opacity:0.9;
 }
 
-/* 🔁 LOGAM DIPINDAH KE KIRI */
+/* 🔁 LOGAM DI KIRI (SEDIKIT KE TENGAH BIAR RAPI) */
 .metal{
 width:28px;
 height:150px;
 background:linear-gradient(180deg,#b0bec5,#607d8b);
 position:absolute;
-left:80px;
+left:120px;
 top:55px;
 border-radius:4px;
 }
 
-/* ELEKTRON */
-
+/* 🔥 ELECTRON (TANPA LEFT BAWAAN!) */
 .electron{
 position:absolute;
-left:150px;
 color:#ffffff;
 font-size:18px;
 font-weight:bold;
 pointer-events:none;
 }
+
+/* ================= UI ================= */
 
 .controls{
 display:flex;
