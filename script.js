@@ -101,7 +101,7 @@ eParticle.style.top = top + "px"
 electronsContainer.appendChild(eParticle)
 
 // posisi awal dari logam (kiri)
-let pos = 150
+let pos = 80
 
 let move = setInterval(function(){
 
