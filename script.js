@@ -87,7 +87,7 @@ lamp.style.boxShadow = "0 0 40px " + color
 
 }
 
-// 🔥 PERUBAHAN HANYA DI SINI
+// 🔥 PERBAIKAN FINAL POSISI ELEKTRON
 function createElectron(speed){
 
 let eParticle = document.createElement("div")
@@ -100,8 +100,12 @@ eParticle.style.top = top + "px"
 
 electronsContainer.appendChild(eParticle)
 
-// posisi awal dari logam (kiri)
-let pos = 80
+// 👉 posisi awal tepat di depan logam (sesuaikan dengan CSS)
+// jika metal left:120px → pakai 115
+let pos = 115
+
+// set posisi awal langsung (biar tidak lompat dari kanan)
+eParticle.style.left = pos + "px"
 
 let move = setInterval(function(){
 
