@@ -70,7 +70,6 @@ phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
 
 }
 
-// ✅ PERBAIKAN DI SINI SAJA
 function updateColor(freq){
 
 let ratio = (freq - 4e14) / (2e15 - 4e14)
@@ -78,7 +77,6 @@ let ratio = (freq - 4e14) / (2e15 - 4e14)
 if(ratio < 0) ratio = 0
 if(ratio > 1) ratio = 1
 
-// dari merah (0) ke ungu (~280)
 let hue = ratio * 280
 
 let color = "hsl(" + hue + ",100%,50%)"
@@ -89,32 +87,32 @@ lamp.style.boxShadow = "0 0 40px " + color
 
 }
 
+// 🔥 PERUBAHAN HANYA DI SINI
 function createElectron(speed){
 
 let eParticle = document.createElement("div")
 
 eParticle.className = "electron"
-
 eParticle.innerText = "e⁻"
 
 let top = 80 + Math.random()*80
-
 eParticle.style.top = top + "px"
 
 electronsContainer.appendChild(eParticle)
 
-let pos = 200
+// posisi awal dari logam (kiri)
+let pos = 150
 
 let move = setInterval(function(){
 
-pos += speed
+// gerak ke kiri
+pos -= speed
 
 eParticle.style.left = pos + "px"
 
-if(pos > 800){
+if(pos < 0){
 
 clearInterval(move)
-
 eParticle.remove()
 
 }
