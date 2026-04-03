@@ -1,44 +1,208 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: white;
-    text-align: center;
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#1a2a6c,#162b4d,#0f1f3a);
+margin:0;
+color:#f1f5ff;
 }
 
-h1 {
-    margin-top: 20px;
-    font-size: 28px;
+.container{
+width:1100px;
+margin:auto;
+padding:30px;
 }
 
-.container {
-    margin-top: 20px;
+h1{
+font-size:34px;
+margin-bottom:5px;
 }
 
-canvas {
-    background: #111;
-    border: 2px solid #00ffff;
-    border-radius: 10px;
-    box-shadow: 0 0 20px cyan;
+.subtitle{
+color:#d0d8ff;
+margin-bottom:30px;
 }
 
-/* Panel kontrol */
-.controls {
-    margin-top: 20px;
+.formula{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:12px;
+margin-bottom:30px;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
-label {
-    display: block;
-    margin: 10px;
+.equation{
+font-size:28px;
+font-weight:bold;
+color:#ffd54f;
+margin:10px 0;
 }
 
-input[type="range"] {
-    width: 250px;
+.simulation{
+width:900px;
+height:260px;
+margin:auto;
+border-radius:15px;
+border:1px solid rgba(255,255,255,0.2);
+background:linear-gradient(180deg,#081425,#03080f);
+position:relative;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,0.6);
+margin-bottom:35px;
 }
 
-/* Glow teks kecil */
-.info {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #ccc;
+/* 🔁 LAMPU DI KANAN */
+.lamp{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#ffeb3b;
+position:absolute;
+right:60px;
+top:105px;
+box-shadow:0 0 40px #ffeb3b;
+}
+
+/* 🔁 BEAM DARI KANAN KE LOGAM */
+.beam{
+width:340px;
+height:8px;
+background:#ffeb3b;
+position:absolute;
+right:110px;
+top:130px;
+border-radius:4px;
+opacity:0.9;
+}
+
+/* 🔁 LOGAM DI KIRI (SEDIKIT KE TENGAH BIAR RAPI) */
+.metal{
+width:28px;
+height:150px;
+background:linear-gradient(180deg,#b0bec5,#607d8b);
+position:absolute;
+left:120px;
+top:55px;
+border-radius:4px;
+}
+
+/* 🔥 ELECTRON (TANPA LEFT BAWAAN!) */
+.electron{
+position:absolute;
+color:#ffffff;
+font-size:18px;
+font-weight:bold;
+pointer-events:none;
+}
+
+/* ================= UI ================= */
+
+.controls{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:20px;
+margin-bottom:25px;
+}
+
+.control-box{
+background:rgba(255,255,255,0.06);
+padding:15px;
+border-radius:10px;
+width:31%;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.control-box label{
+font-weight:600;
+}
+
+input[type=range]{
+width:100%;
+margin-top:10px;
+}
+
+select{
+width:100%;
+margin-top:10px;
+padding:6px;
+border-radius:5px;
+border:none;
+}
+
+.buttons{
+margin-top:20px;
+}
+
+button{
+padding:12px 22px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin:10px;
+transition:0.2s;
+}
+
+#startBtn{
+background:linear-gradient(135deg,#00c853,#64dd17);
+color:white;
+}
+
+#resetBtn{
+background:linear-gradient(135deg,#ff1744,#d50000);
+color:white;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.5);
+}
+
+.results{
+background:rgba(255,255,255,0.06);
+padding:15px;
+border-radius:10px;
+margin-top:25px;
+line-height:1.6;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.explanation{
+background:rgba(255,255,255,0.06);
+padding:20px;
+border-radius:10px;
+margin-top:30px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.graph-section{
+margin-top:40px;
+background:rgba(255,255,255,0.08);
+padding:25px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.35);
+}
+
+.graph-desc{
+color:#d0d8ff;
+margin-bottom:20px;
+}
+
+canvas{
+background:white;
+border-radius:8px;
+margin-top:10px;
+}
+
+.graph-values{
+margin-top:20px;
+}
+
+.graph-values ul{
+list-style:none;
+padding:0;
+}
+
+.graph-values li{
+margin-bottom:6px;
 }

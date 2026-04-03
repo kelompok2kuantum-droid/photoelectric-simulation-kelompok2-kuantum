@@ -1,104 +1,227 @@
-const canvas = document.getElementById("canvas")
-const ctx = canvas.getContext("2d")
-
-canvas.width = 800
-canvas.height = 400
-
-const electrons = []
-
-// Slider
-const freqSlider = document.getElementById("frequency")
-const intensitySlider = document.getElementById("intensity")
-
-// Konstanta
 const h = 6.626e-34
 const e = 1.602e-19
 
-// Fungsi kerja (contoh logam)
-let workFunction = 2.3 * e
+const freqSlider = document.getElementById("frequency")
+const intensitySlider = document.getElementById("intensity")
+const metalSelect = document.getElementById("metalSelect")
 
-function createElectron() {
-    let energy = (h * freqSlider.value) - workFunction
+const freqValue = document.getElementById("freqValue")
+const photonEVText = document.getElementById("photonEV")
+const intensityValue = document.getElementById("intensityValue")
+const phiValue = document.getElementById("phiValue")
 
-    if (energy <= 0) return
+const photonText = document.getElementById("photonEnergy")
+const kineticText = document.getElementById("kineticEnergy")
+const thresholdText = document.getElementById("thresholdFreq")
+const statusText = document.getElementById("status")
 
-    let speed = energy * 1e34
+const lamp = document.getElementById("lamp")
+const beam = document.getElementById("beam")
+const electronsContainer = document.getElementById("electrons")
 
-    // Sudut kecil → dominan ke kanan
-    let angle = (Math.random() - 0.5) * Math.PI / 4
+const startBtn = document.getElementById("startBtn")
+const resetBtn = document.getElementById("resetBtn")
 
-    electrons.push({
-        x: 200,
-        y: 200 + (Math.random() * 80 - 40),
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: 4 + Math.random() * 2,
-        life: 100
-    })
+const graphList = document.getElementById("graphData")
+
+let chart
+
+const ctx = document.getElementById("energyChart")
+
+chart = new Chart(ctx,{
+type:"line",
+data:{
+labels:[],
+datasets:[{
+label:"Energi Kinetik Elektron",
+data:[],
+borderColor:"cyan",
+borderWidth:2,
+fill:false
+}]
+},
+options:{
+responsive:true,
+scales:{
+x:{
+title:{display:true,text:"Frekuensi Cahaya (Hz)"}
+},
+y:{
+title:{display:true,text:"Energi Kinetik (J)"}
+}
+}
+}
+})
+
+function updateDisplay(){
+
+let f = parseFloat(freqSlider.value)
+let intensity = parseInt(intensitySlider.value)
+let phi = parseFloat(metalSelect.value)
+
+let photonEnergy = h * f
+let photonEV = photonEnergy / e
+
+freqValue.innerText = "Frekuensi: " + f.toExponential(2) + " Hz"
+photonEVText.innerText = "Energi Foton: " + photonEV.toFixed(2) + " eV"
+
+intensityValue.innerText = "Intensitas: " + intensity + " %"
+phiValue.innerText = "Fungsi Kerja Logam: " + phi + " eV"
+
 }
 
-function updateElectrons() {
-    for (let i = electrons.length - 1; i >= 0; i--) {
-        let el = electrons[i]
+function updateColor(freq){
 
-        el.x += el.vx
-        el.y += el.vy
+let ratio = (freq - 4e14) / (2e15 - 4e14)
 
-        el.life--
+if(ratio < 0) ratio = 0
+if(ratio > 1) ratio = 1
 
-        if (el.x > canvas.width || el.life <= 0) {
-            electrons.splice(i, 1)
-        }
-    }
+let hue = ratio * 280
+
+let color = "hsl(" + hue + ",100%,50%)"
+
+lamp.style.background = color
+beam.style.background = color
+lamp.style.boxShadow = "0 0 40px " + color
+
 }
 
-function drawElectrons() {
-    electrons.forEach(el => {
-        ctx.beginPath()
-        ctx.arc(el.x, el.y, el.size, 0, Math.PI * 2)
+// ✅ REVISI: elektron keluar di belakang logam & bergerak ke kanan
+function createElectron(speed){
 
-        ctx.fillStyle = "cyan"
-        ctx.shadowColor = "cyan"
-        ctx.shadowBlur = 10
+let eParticle = document.createElement("div")
 
-        ctx.fill()
+eParticle.className = "electron"
+eParticle.innerText = "e⁻"
 
-        ctx.shadowBlur = 0
-    })
+let top = 80 + Math.random()*80
+eParticle.style.top = top + "px"
+
+electronsContainer.appendChild(eParticle)
+
+// posisi awal di belakang logam (kanan logam)
+let pos = 150
+eParticle.style.left = pos + "px"
+
+let move = setInterval(function(){
+
+// GERAK KE KANAN
+pos += speed
+
+eParticle.style.left = pos + "px"
+
+if(pos > 900){
+
+clearInterval(move)
+eParticle.remove()
+
 }
 
-function drawMetal() {
-    ctx.fillStyle = "#888"
-    ctx.fillRect(180, 150, 20, 100)
+},20)
+
 }
 
-function drawLight() {
-    ctx.strokeStyle = "yellow"
-    ctx.lineWidth = 3
+function runSimulation(){
 
-    for (let i = 0; i < intensitySlider.value; i++) {
-        ctx.beginPath()
-        ctx.moveTo(0, 180 + i * 5)
-        ctx.lineTo(180, 180 + i * 5)
-        ctx.stroke()
-    }
+let f = parseFloat(freqSlider.value)
+let intensity = parseInt(intensitySlider.value)
+let phi = parseFloat(metalSelect.value)
+
+let photonEnergy = h * f
+let photonEV = photonEnergy / e
+
+let phiJoule = phi * e
+
+let kinetic = photonEnergy - phiJoule
+let kineticEV = kinetic / e
+
+let thresholdFreq = phiJoule / h
+
+photonText.innerText =
+photonEV.toFixed(2) + " eV  (" + photonEnergy.toExponential(3) + " J)"
+
+thresholdText.innerText =
+thresholdFreq.toExponential(3) + " Hz"
+
+updateColor(f)
+
+if(kinetic > 0){
+
+kineticText.innerText =
+kineticEV.toFixed(2) + " eV  (" + kinetic.toExponential(3) + " J)"
+
+statusText.innerText = "Elektron keluar dari logam"
+
+let speed = kineticEV
+
+if(speed < 1) speed = 1
+if(speed > 12) speed = 12
+
+let electronCount = Math.floor(intensity / 20)
+
+for(let i=0;i<electronCount;i++){
+createElectron(speed)
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+chart.data.labels.push(f.toExponential(1))
+chart.data.datasets[0].data.push(kinetic)
 
-    drawLight()
-    drawMetal()
+chart.update()
 
-    // Spawn elektron sesuai intensitas
-    if (Math.random() < intensitySlider.value / 50) {
-        createElectron()
-    }
+let li = document.createElement("li")
 
-    updateElectrons()
-    drawElectrons()
+li.innerText =
+"f = " + f.toExponential(2) +
+" , Ek = " + kineticEV.toFixed(2) + " eV"
 
-    requestAnimationFrame(animate)
+graphList.appendChild(li)
+
+}else{
+
+kineticText.innerText = "0 eV"
+
+statusText.innerText =
+"Frekuensi lebih kecil dari frekuensi ambang sehingga elektron tidak keluar"
+
 }
 
-animate()
+}
+
+startBtn.addEventListener("click",runSimulation)
+
+resetBtn.addEventListener("click",function(){
+
+electronsContainer.innerHTML = ""
+
+chart.data.labels = []
+chart.data.datasets[0].data = []
+
+chart.update()
+
+graphList.innerHTML = ""
+
+photonText.innerText = ""
+kineticText.innerText = ""
+thresholdText.innerText = ""
+statusText.innerText = ""
+
+})
+
+freqSlider.addEventListener("input",function(){
+
+updateDisplay()
+
+let f = parseFloat(freqSlider.value)
+
+updateColor(f)
+
+})
+
+intensitySlider.addEventListener("input",updateDisplay)
+
+metalSelect.addEventListener("change",updateDisplay)
+
+updateDisplay()
+
+updateColor(parseFloat(freqSlider.value))
